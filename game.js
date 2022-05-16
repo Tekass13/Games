@@ -1,8 +1,9 @@
 //Initialisation du canvas et définition du context
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+var f = new FontFace('Press Start', 'C:/Users/KEVIN/Pictures/Police ecriture');
 
-// Ajout de la bordure au canvas
+//Ajout des bordure du canvas
 canvas.style.border = '1px solid #000';
 ctx.lineWidth = 1;
 
@@ -224,9 +225,19 @@ function bbCollision() {
 //Afficher les statistiques du jeu
 function showStats(img, iPosX, iPosY, text = '', tPosX = null, tPosY = null) {
     ctx.fillStyle = '#fff';
-    ctx.font = '25px Press Start 2P';
+    ctx.font = '12px Press Start';
     ctx.fillText(text, tPosX, tPosY);
-    ctx.drawImage(img, iPosX, iPosY, width = 25, height = 25);
+    ctx.drawImage(img, iPosX, iPosY, width = 20, height = 20);
+
+    //Responsive
+    if (window.matchMedia("(max-width: 1000px)").matches) {
+        ctx.clearRect(iPosX, iPosY, width = 20, height = 20);
+        ctx.drawImage(img, iPosX, iPosY, width = 30, height = 15);
+    }
+    if (window.matchMedia("(max-width: 500px)").matches) {
+        ctx.clearRect(iPosX, iPosY, width = 30, height = 15);
+        ctx.drawImage(img, iPosX, iPosY, width = 30, height = 10);
+    }
 }
 
 //Fin de la partie
@@ -269,9 +280,9 @@ function draw() {
     drawPaddle();
     drawBall();
     drawBricks();
-    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
-    showStats(LIFE_IMG, 35, 5, life, 70, 22);
-    showStats(LEVEL_IMG,(canvas.width / 2) - 25, 5, level, (canvas.width / 2), 22);
+    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 55, 22);
+    showStats(LIFE_IMG, 35, 5, life, 80, 22);
+    showStats(LEVEL_IMG,(canvas.width / 2) - 25, 5, level, (canvas.width / 2) + 10, 22);
 }
 
 //Mettre à jour toutes les actions du jeu durant son cours.
