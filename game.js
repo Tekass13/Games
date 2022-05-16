@@ -24,6 +24,7 @@ let gameOver = false;
 let leftArrow = false;
 let rightArrow = false;
 let isPaused = false;
+let touchMove = false;
 
 //Propriétés de la planche
 const paddle = {
@@ -55,6 +56,9 @@ document.addEventListener('keyup', (e) => {
    if (e.key === 'Left' || e.key === 'ArrowLeft') { leftArrow = false;}
    else if (e.key === 'Right' || e.key === 'ArrowRight') { rightArrow = false;}
 });
+document.addEventListener('touchmove', () => {
+    touchMove = true;
+ });
 
 //Animation - déplacement de la planche
 function movePaddle() {
@@ -63,6 +67,19 @@ function movePaddle() {
     } else if (rightArrow && paddle.x + paddle.w < canvas.width) {
         paddle.x += paddle.dx;
     }
+}
+
+function touchPaddle() {
+    canvas.addEventListener('touchmove', (e) => {
+        if (paddle.x > 0) {
+            paddle.x -= paddle.dx;
+            touchMove = true;
+        }
+        else if (paddle.x + paddle.w < canvas.width) {
+            paddle.x += paddle.dx;
+            touchMove = true;
+        }
+    })
 }
 
 function resetPaddle() {
