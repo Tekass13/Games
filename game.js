@@ -63,6 +63,7 @@ function touchPaddle() {
         let touchX = e.touches[0].clientX;
         if (touchX) {
             paddle.x = touchX;
+            paddle.x += paddle.dx;
         }
     })
 }
