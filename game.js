@@ -14,7 +14,7 @@ const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 5;
 const SCORE_UNIT = 10;
 const MAX_LEVEL = 3;
-
+const body = document.querySelector('body');
 
 //Variables nécessaires
 let life = 3;
@@ -24,7 +24,6 @@ let gameOver = false;
 let leftArrow = false;
 let rightArrow = false;
 let isPaused = false;
-let touchMove = false;
 
 //Propriétés de la planche
 const paddle = {
@@ -56,9 +55,17 @@ document.addEventListener('keyup', (e) => {
    if (e.key === 'Left' || e.key === 'ArrowLeft') { leftArrow = false;}
    else if (e.key === 'Right' || e.key === 'ArrowRight') { rightArrow = false;}
 });
-document.addEventListener('touchmove', () => {
-    touchMove = true;
- });
+
+//Animation - déplacement de la planche
+function touchPaddle() {
+    body.addEventListener('touchmove', (e) => {
+        
+        let touchX = e.touches[0].clientX;
+        if (touchX) {
+            paddle.x = touchX;
+        }
+    })
+}
 
 //Animation - déplacement de la planche
 function movePaddle() {
@@ -69,25 +76,13 @@ function movePaddle() {
     }
 }
 
-function touchPaddle() {
-    canvas.addEventListener('touchmove', (e) => {
-        if (paddle.x > 0) {
-            paddle.x -= paddle.dx;
-            touchMove = true;
-        }
-        else if (paddle.x + paddle.w < canvas.width) {
-            paddle.x += paddle.dx;
-            touchMove = true;
-        }
-    })
-}
-
+//Animation - déplacement de la planche
 function resetPaddle() {
     paddle.x = canvas.width / 2 - PADDLE_WIDTH / 2;
     paddle.y = canvas.height - (PADDLE_MARGIN_BOTTOM + PADDLE_HEIGHT);
 }
 
-//Propriétés de la balle
+//Reinitialisation de la balle
 const ball = {
     x: canvas.width / 2,
     y: paddle.y - BALL_RADIUS,
@@ -305,6 +300,7 @@ function draw() {
 //Mettre à jour toutes les actions du jeu durant son cours.
 function update() {
     movePaddle();
+    touchPaddle();
     moveBall();
     bwCollision();
     bpCollision();
