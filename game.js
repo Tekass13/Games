@@ -31,7 +31,8 @@ const paddle = {
     y: canvas.height - PADDLE_MARGIN_BOTTOM - PADDLE_HEIGHT,
     w: PADDLE_WIDTH,
     h: PADDLE_HEIGHT,
-    dx: 8
+    dx: 8,
+    dxPad: 200
 }
 
 //Déssiner la planche
@@ -61,8 +62,10 @@ function touchPaddle() {
     body.addEventListener('touchmove', (e) => {
         
         let touchX = e.touches[0].clientX;
-        if (touchX && paddle.x > 0) && ((touchX && paddle.x + paddle.w < canvas.width)) {
-            paddle.x += paddle.dx *2;
+        if (touchX > paddle.x) {
+            paddle.x = touchX - paddle.w;
+        } else {
+            paddle.x = touchX + paddle.w;
         }
     })
 }
@@ -132,6 +135,7 @@ function bwCollision() {
         life--;
         resetBall();
         resetPaddle();
+        paddle.w = PADDLE_WIDTH;
     }
 }
 
@@ -151,21 +155,23 @@ function bpCollision() {
 
         PADDLE_HIT.play();
 
-        //On crée un point de collision
+        //Point de collision
         let collidePoint = ball.x - (paddle.x + paddle.w/2);
 
-        //On normalise le point de collision de facon à n'avoir qu'un repère trgonométrique
         collidePoint = collidePoint / (paddle.w/2);
 
-        //On défini un angle de tir a rebond de la balle sur la planche
+        //Angle de tir
         let angle = collidePoint * Math.PI/3;
 
         ball.dx = ball.velocity * Math.sin(angle);
         ball.dy = -ball.velocity * Math.cos(angle);
+        
+        //Augmentation de la largeur de la planche
+        paddle.w += 5;
     }
 }
 
-//Propriétés ddes briques
+//Propriétés des briques
 const brickProp = {
     row: 2,
     column: 13,
