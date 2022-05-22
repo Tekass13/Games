@@ -61,8 +61,8 @@ function touchPaddle() {
     body.addEventListener('touchmove', (e) => {
         
         let touchX = e.touches[0].clientX;
-        if (touchX) {
-            paddle.x += touchX + paddle.dx;
+        if (touchX && paddle.x > 0) && ((touchX && paddle.x + paddle.w < canvas.width)) {
+            paddle.x += paddle.dx *2;
         }
     })
 }
