@@ -41,7 +41,7 @@ function drawPaddle() {
 
     ctx.fillStyle = '#fff';
     ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
-    ctx.strokeStyle = '#6198d8';
+    ctx.strokeStyle = '#a214ff';
     ctx.strokeRect(paddle.x, paddle.y, paddle.w, paddle.h);
 
     ctx.closePath();
@@ -103,7 +103,7 @@ function drawBall() {
     ctx.fillStyle = '#fff';
     ctx.fill();
 
-    ctx.strokeStyle = '#6198d8';
+    ctx.strokeStyle = '#000';
     ctx.stroke();
 
     ctx.closePath();
@@ -164,10 +164,7 @@ function bpCollision() {
         let angle = collidePoint * Math.PI/3;
 
         ball.dx = ball.velocity * Math.sin(angle);
-        ball.dy = -ball.velocity * Math.cos(angle);
-        
-        //Augmentation de la largeur de la planche
-        paddle.w += 5;
+        ball.dy = -ball.velocity * Math.cos(angle);   
     }
 }
 
@@ -176,11 +173,12 @@ const brickProp = {
     row: 2,
     column: 13,
     w: 35,
-    h: 10,
+    h: 15,
     padding: 3,
     offsetX: 55,
     offsetY: 40,
-    fillColor: '#ffa657',
+    fillColor: '#000',
+    stroke: '#fff',
     visible: true,
 }
 
@@ -211,6 +209,8 @@ function drawBricks() {
                 ctx.rect(brick.x, brick.y, brick.w, brick.h);
                 ctx.fillStyle = brick.fillColor;
                 ctx.fill();
+                ctx.strokeStyle = brick.stroke;
+                ctx.stroke();
 
                 ctx.closePath();
             }
@@ -226,8 +226,7 @@ function bbCollision() {
                 if (ball.x + ball.radius > brick.x &&
                     ball.x - ball.radius < brick.x + brick.w &&
                     ball.y + ball.radius > brick.y &&
-                    ball.y - ball.radius < brick.y + brick.h
-                ) {
+                    ball.y - ball.radius < brick.y + brick.h) {
 
                     BRICK_HIT.play().then(r => null);
 
@@ -257,6 +256,15 @@ function showStats(img, iPosX, iPosY, text = '', tPosX = null, tPosY = null) {
         ctx.drawImage(img, iPosX, iPosY, width = 30, height = 10);
     }
 }
+
+//Création des bonus
+// if (ball.x + ball.radius > brick.x &&
+//     ball.x - ball.radius < brick.x + brick.w &&
+//     ball.y + ball.radius > brick.y &&
+//     ball.y - ball.radius < brick.y + brick.h && 
+//     bricks.length == 13) {
+        
+// }
 
 //Fin de la partie
 function gameover () {
