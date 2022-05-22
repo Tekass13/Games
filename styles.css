@@ -61,7 +61,7 @@ body {
 
 .sound-container {
     position: absolute;
-    top: 90%;
+    top: 85%;
     left: 15%;
 }
 
@@ -81,12 +81,12 @@ canvas {
     display: block;
     border-radius: 5px;
     width: 80%;
-    height: 100%;
+    height: 80%;
 }
 
 .btn {
     cursor: pointer;
-    background-color: #222;;
+    background-color: #000;;
     border: none;
     padding: 10px 20px;
     color: #fff;
@@ -110,7 +110,7 @@ canvas {
 .rules-btn {
     background-color: #000;
     position: absolute;
-    top: 105%;
+    top: 95%;
     left: 'canvas.width/2';
     font-family: 'Press Start 2P', sans-serif;
 }
@@ -124,8 +124,8 @@ canvas {
     background-color: #6198d8;
     color: #000;
     width: 400px;
+    height: auto;
     padding: 20px;
-    line-height: 1.5;
     border-radius: 5px;
     visibility: hidden;
     opacity: 0;
@@ -140,4 +140,10 @@ canvas {
 .rules p {
     margin-bottom: .5rem;
     margin-top: 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .sound-container img {
+        width: 25px;
+    }
 }
