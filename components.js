@@ -1,13 +1,15 @@
 /* ===== CHARGEMENT DES DIFFERENTS SONS DU JEU===== */
-const WALL_HIT = new Audio('sounds/walls.wav');
+const WALL_HIT = new Audio('sounds/wall.wav');
 
-const PADDLE_HIT = new Audio('sounds/paddle_hits.mp3');
+const PADDLE_HIT = new Audio('sounds/paddle_hit.wav');
 
-const BRICK_HIT = new Audio('sounds/brick_hits.wav');
+const BRICK_HIT = new Audio('sounds/brick_hit.wav');
 
-const WIN = new Audio('sounds/win.mp3');
+const WIN = new Audio('sounds/win.wav');
 
-const LIFE_LOST = new Audio('sounds/life_lost.mp3');
+const LIFE_LOST = new Audio('sounds/lose.wav');
+
+const MUSIC = new Audio('sounds/music.mp3');
 
 /* ===== CHARGEMENT DES IMAGES ===== */
 const LEVEL_IMG = new Image(40, 40);

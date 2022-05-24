@@ -11,6 +11,9 @@ ctx.lineWidth = 1;
 const PADDLE_WIDTH = 100;
 const PADDLE_MARGIN_BOTTOM = 20;
 const PADDLE_HEIGHT = 10;
+const WEAPON_WIDTH = 100;
+const WEAPON_MARGIN_BOTTOM = 20;
+const WEAPON_RADIUS = 5;
 const BALL_RADIUS = 5;
 const SCORE_UNIT = 10;
 const MAX_LEVEL = 3;
@@ -31,8 +34,7 @@ const paddle = {
     y: canvas.height - PADDLE_MARGIN_BOTTOM - PADDLE_HEIGHT,
     w: PADDLE_WIDTH,
     h: PADDLE_HEIGHT,
-    dx: 8,
-    dxPad: 200
+    dx: 8
 }
 
 //Déssiner la planche
@@ -139,7 +141,7 @@ function bwCollision() {
     }
 }
 
-//Reinitialisation de la balle en cas de perte d'une vie
+//Reinitialisation de la balle
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = paddle.y - BALL_RADIUS;
@@ -233,7 +235,7 @@ function bbCollision() {
                     ball.dy *= -1;
                     brick.status = false;
                     score += SCORE_UNIT;
-                    
+
                     if (score == 130) {
                         paddle.w += 50;
                     }
@@ -260,15 +262,6 @@ function showStats(img, iPosX, iPosY, text = '', tPosX = null, tPosY = null) {
         ctx.drawImage(img, iPosX, iPosY, width = 30, height = 10);
     }
 }
-
-//Création des bonus
-// if (ball.x + ball.radius > brick.x &&
-//     ball.x - ball.radius < brick.x + brick.w &&
-//     ball.y + ball.radius > brick.y &&
-//     ball.y - ball.radius < brick.y + brick.h && 
-//     bricks.length == 13) {
-        
-// }
 
 //Fin de la partie
 function gameover () {
@@ -326,6 +319,7 @@ function update() {
     bbCollision();
     gameover();
     nextLevel();
+    MUSIC.play();
 }
 
 function loop() {
@@ -359,8 +353,8 @@ function audioManager() {
     BRICK_HIT.muted = !BRICK_HIT.muted;
     WIN.muted = !WIN.muted;
     LIFE_LOST.muted = !LIFE_LOST.muted;
+    MUSIC.muted = !MUSIC.muted;
 }
-
 //GESTION DU DOM POUR L'AFFICHAGE DES ERREURS
 //Importation des éléments du DOM
 const rules = document.getElementById('rules');
