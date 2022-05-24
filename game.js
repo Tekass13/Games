@@ -301,6 +301,7 @@ function nextLevel () {
         ball.velocity += .5;
         resetBall();
         resetPaddle();
+        paddle.w = PADDLE_WIDTH;
         level++;
     }
 }
