@@ -233,6 +233,10 @@ function bbCollision() {
                     ball.dy *= -1;
                     brick.status = false;
                     score += SCORE_UNIT;
+                    
+                    if (score == 130) {
+                        paddle.w += 50;
+                    }
                 }
             }
         })
